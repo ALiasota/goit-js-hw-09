@@ -34,36 +34,41 @@ const options = {
 
 flatpickr(refs.timePicker, options);
 
-refs.strartBtn.addEventListener('click', onClick);
+const objTimer = {
+  oldDate: chosenDate,
+  timer: null,
+  math: null,
 
-function onClick() {
-  interval = setInterval(renderTimer, refs.DELLAYDELLAY);
-  
+  onClick() {
+    interval = setInterval(
+      () => {
+          this.timer = addLeadingZero(convertMs(this.oldDate - Date.now()));
+          this.math = Math.round((this.oldDate % Date.now()) / 600)
+        if (this.oldDate !== chosenDate) {
+          this.timer = addLeadingZero(convertMs(chosenDate - Date.now()));
+          this.math = Math.round((chosenDate % Date.now()) / 600)   
+        }
+
+        refs.dDays.textContent = this.timer.days;
+        refs.dHours.textContent = this.timer.hours;
+        refs.dMinutes.textContent = this.timer.minutes;
+        refs.dSeconds.textContent = this.timer.seconds;
+
+        if (this.math === 1) {
+          clearInterval(interval);    
+          return;
+        }
+        
+         
+        
+      }
+      , refs.DELLAYDELLAY);  
+  },
 }
 
-function renderTimer() {
-  const oldDate = chosenDate;
-  let timer = null;
-  let math = null;
-  if (oldDate !== chosenDate) {
-    timer = addLeadingZero(convertMs(chosenDate - Date.now()));
-    math = Math.round((chosenDate % Date.now()) / 600)
-    
-  } else {
-    timer = addLeadingZero(convertMs(oldDate - Date.now()));
-    math = Math.round((oldDate % Date.now()) / 600)
-  }
+refs.strartBtn.addEventListener('click', objTimer.onClick);
 
-  refs.dDays.textContent = timer.days;
-  refs.dHours.textContent = timer.hours;
-  refs.dMinutes.textContent = timer.minutes;
-  refs.dSeconds.textContent = timer.seconds;
 
-  if (math === 1) {
-    clearInterval(interval);    
-    return;
-  }   
-}
 
 function addLeadingZero({ days, hours, minutes, seconds }) {
   days = String(days).padStart(2, '0');
