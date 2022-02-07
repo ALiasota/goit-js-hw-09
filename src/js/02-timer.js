@@ -15,7 +15,7 @@ refs.strartBtn.disabled = true;
 let chosenDate = null;
 let interval = null;
 
-Notify.info();
+
 
 
 const options = {
