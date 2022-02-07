@@ -15,6 +15,9 @@ refs.strartBtn.disabled = true;
 let chosenDate = null;
 let interval = null;
 
+Notify.info();
+
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -22,7 +25,8 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {      
     if (selectedDates[0] - Date.now() < 0) {
-          alert("Please choose a date in the future");
+      Notify.info("Please choose a date in the future");
+          // alert("Please choose a date in the future");
           return;
       }
     chosenDate = selectedDates[0];
