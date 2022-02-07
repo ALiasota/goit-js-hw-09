@@ -30,7 +30,6 @@ const options = {
           return;
       }
     chosenDate = selectedDates[0];
-    console.log(chosenDate);
 
       refs.strartBtn.disabled = false;
   },
@@ -44,15 +43,13 @@ const objTimer = {
   math: null,
 
   onClick() {
+    if (this.oldDate !== chosenDate) {
+      this.oldDate = chosenDate;
+        }
     interval = setInterval(
       () => {
           this.timer = addLeadingZero(convertMs(this.oldDate - Date.now()));
-          this.math = Math.round((this.oldDate % Date.now()) / 600)
-        if (this.oldDate !== chosenDate) {
-          this.timer = addLeadingZero(convertMs(chosenDate - Date.now()));
-          this.math = Math.round((chosenDate % Date.now()) / 600)   
-        }
-
+        this.math = Math.round((this.oldDate % Date.now()) / 600);
         refs.dDays.textContent = this.timer.days;
         refs.dHours.textContent = this.timer.hours;
         refs.dMinutes.textContent = this.timer.minutes;
