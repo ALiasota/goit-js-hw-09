@@ -11,9 +11,9 @@ const form = document.querySelector('.form');
 
 function onSubm(e) {
   e.preventDefault();
-  const startDelay = form.elements.delay.value;  
-  const step = form.elements.step.value;
-  const amount = form.elements.amount.value;
+  const startDelay = Number(form.elements.delay.value);  
+  const step = Number(form.elements.step.value);  
+  const amount = Number(form.elements.amount.value);
   let delay = startDelay;
   
   
@@ -35,8 +35,7 @@ function onSubm(e) {
   .catch(({ position, delay }) => {
     Notify.info(`❌ Rejected promise ${position} in ${delay}ms`);
   });
-    delay += step;
-    console.log(i);
+    delay += step;    
   }
 
 }
