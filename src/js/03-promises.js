@@ -33,7 +33,7 @@ function onSubm(e) {
     Notify.info(`✅ Fulfilled promise ${position} in ${delay}ms`);
   })
   .catch(({ position, delay }) => {
-    Notify.info(`❌ Rejected promise ${position} in ${delay}ms`);
+    Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
   });
     delay += step;    
   }

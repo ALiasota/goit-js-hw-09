@@ -42,34 +42,38 @@ const objTimer = {
   timer: null,
   math: null,
 
+  
+
   onClick() {
     if (this.oldDate !== chosenDate) {
       this.oldDate = chosenDate;
         }
-    interval = setInterval(
+    const interval = setInterval(
       () => {
-          this.timer = addLeadingZero(convertMs(this.oldDate - Date.now()));
-        this.math = Math.round((this.oldDate % Date.now()) / 600);
-        refs.dDays.textContent = this.timer.days;
-        refs.dHours.textContent = this.timer.hours;
-        refs.dMinutes.textContent = this.timer.minutes;
-        refs.dSeconds.textContent = this.timer.seconds;
+        this.timer = addLeadingZero(convertMs(this.oldDate - Date.now()));
+        this.math = Math.round((this.oldDate % Date.now()) / 1000);
+        render(this.timer);
+       
 
         if (this.math === 1) {
-          clearInterval(interval);    
+          clearInterval(interval);
+          refs.strartBtn.disabled = true;
           return;
-        }
-        
-         
+        }       
         
       }
-      , refs.DELLAYDELLAY);  
+      , refs.DELLAY);  
   },
 }
 
 refs.strartBtn.addEventListener('click', objTimer.onClick);
 
-
+function render({ days, hours, minutes, seconds }) {
+    refs.dDays.textContent = days;
+    refs.dHours.textContent = hours;
+    refs.dMinutes.textContent = minutes;
+    refs.dSeconds.textContent = seconds;
+  }
 
 function addLeadingZero({ days, hours, minutes, seconds }) {
   days = String(days).padStart(2, '0');
